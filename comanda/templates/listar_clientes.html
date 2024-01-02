@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Listar Clientes{% endblock  %}
+
+{% block content %}
+<h2>Listar Clientes</h2>
+<form method="post" action="{% url 'marcar_pagamento' %}">
+    {% csrf_token %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Itens</th>
+                <th>Total</th>
+                <th>Pagamento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+                <tr class="{% if cliente.pagamento %}table-secondary{% endif %}">
+                    <td>{{ cliente.nome }}</td>
+                    <td>
+                        {% for pedido in cliente.pedido_set.all %}
+                            {{ pedido.produto.nome }} ({{ pedido.quantidade }}), 
+                        {% endfor %}
+                    </td>
+                    <td>R$ {{ cliente.total_pedido }}</td>
+                    <td>
+                        <input type="checkbox" name="cliente_{{ cliente.id }}" {% if cliente.pagamento %}checked{% endif %}>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Marcar Pagamento</button>
+</form>
+
+{% endblock %}

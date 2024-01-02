@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Associar Produto{% endblock  %}
+
+{% block content %}
+<h2>Associar Produto a {{ cliente.nome }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="produto_id">Escolha um produto:</label>
+        <select name="produto_id">
+            {% for produto in produtos %}
+                <option value="{{ produto.id }}">{{ produto.nome }} - R$ {{ produto.preco }}</option>
+            {% endfor %}
+        </select>
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" name="quantidade" value="1" min="1">
+        <button type="submit">Associar</button>
+    </form>
+
+    <h3>Itens do Pedido</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Itens</th>
+                <th>Qnt</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedido in pedidos_cliente %}
+                <tr>
+                    <td>{{ pedido.produto.nome }}</td>
+                    <td>{{ pedido.quantidade }}</td>
+                    <td>R$ {{ pedido.total_item }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td>R$ {{ total_pedido_cliente }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

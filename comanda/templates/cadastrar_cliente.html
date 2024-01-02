@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Cadastrar Cliente{% endblock  %}
+
+{% block content %}
+<br><br><br>
+    <div class="card mx-auto" style="width: 18rem;">
+        <form method="post">
+            {% csrf_token %}
+            <img src="{% static 'images/logo.png' %}" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">Abrir comanda</h5>
+            <p class="card-text">Insira o nome do cliente para abrir comanda</p>
+                
+                {{ form.as_p }}
+            <button class="btn btn-secondary" type="submit">Cadastrar</button>
+        </div>
+        </form>
+      </div>
+
+{% endblock %}

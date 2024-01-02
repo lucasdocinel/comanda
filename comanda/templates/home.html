@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock  %}
+
+{% block content %}
+<br><br><br>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'images/adicionar-ficheiro.png' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Abrir comanda</h5>
+                    <p class="card-text">Basta clicar no botao abaixo para abrir uma comanda nova. Será necessario apenas o nome do cliente</p>
+                    <a href="{% url 'cadastrar_cliente' %}" class="btn btn-primary">Adicionar comanda</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'images/produtos.png' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Adicionar Produto</h5>
+                    <p class="card-text">Para adicionar produtos.</p>
+                    <a href="{% url 'cadastrar_produto' %}" class="btn btn-primary">Cadastrar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{% static 'images/cliente.png' %}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Lista de comandas</h5>
+                    <p class="card-text">Ir para lista de comandas abertas com valores.</p>
+                    <a href="{% url 'listar_clientes' %}" class="btn btn-primary">Ver lista</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
