@@ -3,34 +3,30 @@
 
 {% block content %}
 <h2>Listar Clientes</h2>
-<form method="post" action="{% url 'marcar_pagamento' %}">
-    {% csrf_token %}
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Cliente</th>
+            <th>Itens</th>
+            <th>Total Individual</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
             <tr>
-                <th>Cliente</th>
-                <th>Itens</th>
-                <th>Total</th>
-                <th>Pagamento</th>
+                <td><a href="{% url "comanda_individual" cliente.id %}">{{ cliente.nome }}</a></td>
+                <td>
+                    {% for pedido_quantity in cliente.itens_quantidades %}
+                        {{ pedido_quantity.produto__nome }} ({{ pedido_quantity.total }}),
+                    {% endfor %}
+                </td>
+                <td>R$ {{ cliente.total_pedido }}</td>
+                <td><center><a href="{% url 'delete' cliente.id %}">delete</a></center></td>
             </tr>
-        </thead>
-        <tbody>
-            {% for cliente in clientes %}
-                <tr class="{% if cliente.pagamento %}table-secondary{% endif %}">
-                    <td>{{ cliente.nome }}</td>
-                    <td>
-                        {% for pedido in cliente.pedido_set.all %}
-                            {{ pedido.produto.nome }} ({{ pedido.quantidade }}), 
-                        {% endfor %}
-                    </td>
-                    <td>R$ {{ cliente.total_pedido }}</td>
-                    <td>
-                        <input type="checkbox" name="cliente_{{ cliente.id }}" {% if cliente.pagamento %}checked{% endif %}>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        {% endfor %}
+    </tbody>
+</table>
     <button type="submit">Marcar Pagamento</button>
 </form>
 

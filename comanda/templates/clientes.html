@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Clientes{% endblock  %}
+
+{% block content %}
+<br>
+<h1>Clientes em aberto</h1>
+<br>
+<div class="container">
+    <div class="d-flex flex-row">
+        {% for cliente in clientes %}
+            <div class="card" style="width: 18rem; margin-right: 10px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ cliente.nome }}</h5>
+                    <p class="card-text">CLIENTE AINDA EM ABERTO</p>
+                    <a href="#" class="card-link">Ver Comanda</a>
+                    <a href="{% url 'delete' cliente.id %}" class="card-link">Excluir</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+        
+        
+
+{% endblock  %}
